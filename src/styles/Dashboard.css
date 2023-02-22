@@ -1,0 +1,18 @@
+.dashboard{
+    display: flex;
+}
+.leftbar{
+    width: 20%;
+    height: 90vh;
+    border: 1px solid red;
+}
+.middlebar{
+    width: 50%;
+    height: 90vh;
+    border: 1px solid red;
+}
+.rightbar{
+    width: 30%;
+    height: 90vh;
+    border: 1px solid red;
+}

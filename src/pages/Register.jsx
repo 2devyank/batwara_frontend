@@ -3,16 +3,27 @@ import "../styles/Register.css"
 import {Form} from "react-bootstrap";
 import {Button} from "react-bootstrap";
 import art from "../assets/art.png";
+import { Link } from 'react-router-dom';
 function Register() {
+
   return (
     <div className='allover'>
         <div className='signup'>
           <h3>Batwara</h3>
 
           <div className='box'>
-            <button className=''>Sign Up</button>
-            <button className=''>Log In</button>
+            <button className='dash'>
+              <Link style={{textDecoration:"none",color:"black"}} to="/register">
+            SignUp
+            </Link>
+            </button>
+            <button className='dash'>
+              <Link style={{textDecoration:"none",color:"black"}} to="/login">
+              LogIn
+              </Link>
+              </button>
           </div>
+          {/* <br /> */}
           <div className="form">
 
         <Form>

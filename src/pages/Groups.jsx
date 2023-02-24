@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import "../styles/Dashboard.css"
+import "../styles/Groups.css"
 import p1 from "../assets/p1.svg"
 import s1 from "../assets/s1.png"
 import h1 from "../assets/h1.png"
@@ -7,20 +8,10 @@ import jg from "../assets/jg.png"
 import user from "../assets/user.png"
 import { Link } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
-function Dashboard() {
-  const [grpdata,setgrpdata]=useState("")
-  useEffect(()=>{
-    getgrpdata();
-  },[])
-  async function getgrpdata(){
-    const result=await fetch("http://localhost:5000/group/1")
-    const data=await result.json();
-    setgrpdata(data);
-  }
-  console.log(grpdata);
+function Groups() {
   return (
-    <div className='dashboard'>
-      <div className='leftbar'>
+    <div className="dashboard">
+           <div className='leftbar'>
         <div className="menu">
         <span><Link to="/"  className='dashboarding'>
     <img src={h1} alt="" style={{width:"20px",height:"20px"}} />
@@ -45,39 +36,15 @@ function Dashboard() {
       <div className='out'><img src={s1} alt=""style={{width:"25px",height:"25px"}} />Sign Out</div>
         </div>
       </div>
-      <div className='middlebar'>
-        <div className='mentos'>
-        <div className='info'>
-          <img src="" alt="" />
-        <p className='camila'>camila</p>
-        <p>Phone No : +91 9868538198</p>
-        <p>Email : camila@gmail.com</p>
-        </div>
-        <div className='rightinfo'>
-          <div className='aboveinfo'>
-          Owe You
-         <p >
-           + ₹300
-          </p>
-          </div>
-          <div className='belowinfo'>
-          You Owe
-         <p>
-          - ₹500
-          </p> 
-          </div>
-        </div>
-        </div>
-        <div className='downmentos'>
-          <div className='lended'></div>
-          <div className='pay'> </div>
-        </div>
+      <div className='grpexpenses'>
+    <h3>Expenses</h3>
+
       </div>
-      <div className="rightbar">
-        <h2>
-          My Groups
-          </h2>
-      <Table >
+    <div className='grpmembers'>
+    <h3>
+        Group Members
+        </h3>
+    <Table >
       <thead>
         <tr>
           <th>#</th>
@@ -94,9 +61,9 @@ function Dashboard() {
        
       </tbody>
     </Table>
-      </div>
+    </div>
     </div>
   )
 }
 
-export default Dashboard
+export default Groups

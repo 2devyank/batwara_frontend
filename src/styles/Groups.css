@@ -1,0 +1,13 @@
+.grpexpenses{
+    width: 50%;
+    height: 90vh;
+    border: 1px solid red;
+}
+.grpmembers{
+    width: 30%;
+    height: 90vh;
+    border: 1px solid red;
+}
+.grpmembers table{
+    color: white;
+}

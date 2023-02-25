@@ -9,6 +9,13 @@ import user from "../assets/user.png"
 import { Link } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
 function Groups() {
+  const [grpmember,setgrpmember]=useState("");
+
+  async function getgrpdata() {
+    const result = await fetch("http://localhost:5000/expense")
+    const data = await result.json();
+    setgrpmember(data);
+  }
   return (
     <div className="dashboard">
            <div className='leftbar'>

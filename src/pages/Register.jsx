@@ -1,10 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "../styles/Register.css"
 import {Form} from "react-bootstrap";
 import {Button} from "react-bootstrap";
 import art from "../assets/art.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 function Register() {
+  const navigate=useNavigate();
+  const [name,setname]=useState("");
+  const [phone,setphone]=useState("");
+  const [email,setemail]=useState("");
+  const [password,setpassword]=useState("");
+  // console.log(person_id);
+  
+  async function handleregister(e){
+    e.preventDefault();
+    try{
+      const person_id=Math.random().toString(8).slice(-2);
+      
+      const body={person_id,name,email,phone,password};
+      const result = await fetch("http://localhost:5000/register",{
+        method:'POST',
+        headers:{"Content-type":"application/json"},
+        body:JSON.stringify(body)
+      }) 
+      navigate("/login");
+      
+    }catch(e){
+      console.log(e);
+        }
+
+        setname("")
+        setphone("")
+        setemail("")
+        setpassword("")
+  }
+  useEffect(()=>{
+
+  })
 
   return (
     <div className='allover'>
@@ -26,29 +58,29 @@ function Register() {
           {/* <br /> */}
           <div className="form">
 
-        <Form>
+        <Form onSubmit={handleregister}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Name</Form.Label>
-        <Form.Control type="name" placeholder="Enter Name" />
+        <Form.Control type="name" placeholder="Enter Name" value={name} onChange={(e)=>setname(e.target.value)} />
         
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Phone No</Form.Label>
-        <Form.Control type="phone no" placeholder="Enter Phone no" />
+        <Form.Control type="phone no" placeholder="Enter Phone no" value={phone} onChange={(e)=>setphone(e.target.value)} />
        
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>setemail(e.target.value)}/>
      
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Control type="password" placeholder="Password" value={password} onChange={(e)=>setpassword(e.target.value)} />
       </Form.Group>
      
-      <button className="lower" type="submit">
+      <button className="lower" type="Submit">
         Submit
       </button>
     </Form>

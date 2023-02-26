@@ -17,9 +17,7 @@ const navigate=useNavigate();
     getpersondata();
   }, [])
 
-const gotogrp=(name)=>{
-  navigate(`/groups/${name}`)
-}
+
 
   async function getgrpdata() {
     const result = await fetch(`http://localhost:5000/group/${localStorage.getItem("pid")}`)
@@ -119,7 +117,7 @@ const gotogrp=(name)=>{
             </thead>
             {grpdata.map((data) => (
               <tbody>
-                <tr onClick={()=>navigate(`/groups/${data.grpname}`)} >
+                <tr onClick={()=>navigate(`/groups/${data.group_id}`)} >
                   <td>#</td>
                   <td >{data.grpname}</td>
 

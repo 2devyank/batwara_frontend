@@ -6,10 +6,12 @@ import s1 from "../assets/s1.png"
 import h1 from "../assets/h1.png"
 import jg from "../assets/jg.png"
 import user from "../assets/user.png"
-import { Link, useParams } from 'react-router-dom'
-import { Modal, Table } from 'react-bootstrap'
+import {  Link, useParams } from 'react-router-dom'
+import { Button, Modal, Table,Form } from 'react-bootstrap'
 function Groups() {
   const [grpmember,setgrpmember]=useState([]);
+  const [memloading,setmemloading]=useState(false);
+  const [exloading,setexloading]=useState(false);
   const [ex,setex]=useState([]);
 const groupid=useParams();
 console.log(groupid.id);
@@ -17,6 +19,7 @@ console.log(groupid.id);
     const result = await fetch(`http://localhost:5000/expense/${groupid.id}`)
     const data = await result.json();
     setex(data);
+    setexloading(true);
   }
   useEffect(()=>{
     getgrpmates();
@@ -28,14 +31,39 @@ console.log(groupid.id);
     const result = await fetch(`http://localhost:5000/group/${id}`)
     const data = await result.json();
     setgrpmember(data);
+    setmemloading(true);
   }
   console.log(ex);
 
 
 
   const [show, setShow] = useState(false);
+  const [topic, settopic] = useState("");
+  const [payer, setpayer] = useState("");
+  const [amount, setamount] = useState("");
 
-  const handleClose = () => setShow(false);
+  async function handleClose(e){
+    e.preventDefault();
+  const group_id=groupid.id;
+  const totalprice=amount;
+  try{
+
+    const expense_id=Math.random().toString(3).slice(-4);
+    const body={expense_id,payer,topic,totalprice,group_id}
+    const result=await fetch("http://localhost:5000/expense",{
+      method:"POST",
+      headers:{"Content-type":"application/json"},
+      body:JSON.stringify(body)
+    })
+    
+    setShow(false)
+    setpayer("")
+    setamount("")
+    settopic("")
+  }catch(e){
+    console.log(e);
+  }
+  }
   const handleShow = () => setShow(true);
 
   return (
@@ -51,7 +79,7 @@ console.log(groupid.id);
        
         <button className='addgroup'> Add Group +</button>
         <button className='addgroup'> Add Member +</button>
-        <button className='addgroup'> Add Expense +</button>
+        <button className='addgroup' onClick={handleShow}> Add Expense +</button>
         </div>
         <div className='belowmenu'>
       <div className='back'>
@@ -77,7 +105,7 @@ console.log(groupid.id);
     <div></div>
     <div>
    
-      {!ex ?(
+      {!exloading ?(
 <div></div>
       ):(
         <Table >
@@ -126,7 +154,7 @@ console.log(groupid.id);
         Group Members
         </h3>
         {
-          !grpmember ? (
+          !memloading ? (
 <div>working ....</div>
           ) :(
             <Table >
@@ -160,13 +188,33 @@ console.log(groupid.id);
       <Modal.Header closeButton>
         <Modal.Title>Modal heading</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+      <Modal.Body>
+<Form>
+  
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Label>Description</Form.Label>
+    <Form.Control type="description" placeholder="Enter Description" value={topic} onChange={(e)=>settopic(e.target.value)}/>
+ 
+  </Form.Group>
+
+  <Form.Group className="mb-3" controlId="formBasicPassword">
+    <Form.Label>Amount</Form.Label>
+    <Form.Control type="amount" placeholder="Enterrr Amount" value={amount} onChange={(e)=>setamount(e.target.value)}/>
+  </Form.Group>
+  <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Label>Who Payed</Form.Label>
+    <Form.Control type="name" placeholder="Enter payer" value={payer} onChange={(e)=>setpayer(e.target.value)}/>
+ 
+  </Form.Group>
+</Form>
+
+
+
+      </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
+        
         <Button variant="primary" onClick={handleClose}>
-          Save Changes
+          ADD EXPENSE
         </Button>
       </Modal.Footer>
     </Modal>

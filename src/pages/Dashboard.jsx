@@ -7,6 +7,7 @@ import jg from "../assets/jg.png"
 import user from "../assets/user.png"
 import { Link, useNavigate } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
+import { useUserAuth } from '../context/UserAuthcontext'
 function Dashboard() {
   const [grpdata, setgrpdata] = useState([])
   const [persondata, setpersondata] = useState([])
@@ -17,7 +18,8 @@ const navigate=useNavigate();
     getpersondata();
   }, [])
 
-
+const {name}=useUserAuth();
+console.log(name);
 
   async function getgrpdata() {
     const result = await fetch(`http://localhost:5000/group/${localStorage.getItem("pid")}`)

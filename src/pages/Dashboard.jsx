@@ -18,8 +18,9 @@ const navigate=useNavigate();
     getpersondata();
   }, [])
 
-const {name}=useUserAuth();
-console.log(name);
+const {username,setusername,filexp,filesuperexp}=useUserAuth();
+
+
 
   async function getgrpdata() {
     const result = await fetch(`http://localhost:5000/group/${localStorage.getItem("pid")}`)
@@ -38,10 +39,12 @@ console.log(name);
     setloading(true);
   }
   if (loading) {
-
+    
+    setusername(persondata[0].name)
     localStorage.setItem("pid", persondata[0].person_id)
   }
-  console.log(grpdata);
+  // console.log(username);
+  // console.log(grpdata);
   // console.log(persondata[0].email);
   return (
     <>
@@ -101,8 +104,68 @@ console.log(name);
             </div>
           </div>
           <div className='downmentos'>
-            <div className='lended'></div>
-            <div className='pay'> </div>
+           
+         {
+              filexp?
+              (
+                <Table >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Person</th>
+                    <th>Amount</th>
+    
+                  </tr>
+                </thead>
+                {
+                  filexp.map((data) => {
+                    let cost=data.totalprice
+                    let num=data.member.length
+                  return  data.member.map((d)=>(
+                    d!=username ?(
+                      <tbody>
+                      <tr >
+                     <td>#</td>
+                     
+                      <td>{d}</td>
+                      <td>+{cost/num}</td>
+                   </tr>
+                 </tbody>
+                    ):(<div></div>)
+                  
+                        ))
+    
+    
+})}
+                {
+                  filesuperexp.map((data) => {
+                    let nam=data.payer
+                    let cost =data.totalprice
+                    let num=data.member.length
+                    return data.member.map((d)=>(
+                    d==nam ?(
+                      <tbody>
+                      <tr >
+                     <td>#</td>
+                     
+                      <td>{d}</td>
+                      <td>-{cost/num}</td>
+                   </tr>
+                 </tbody>
+                    ):(<div></div>)
+                  
+                        ))
+    
+    
+                    })}
+                </Table>
+              ):(
+                <div></div>
+
+              )
+            }
+            
+
           </div>
         </div>
         <div className="rightbar">

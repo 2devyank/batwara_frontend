@@ -8,7 +8,9 @@ import jg from "../assets/jg.png"
 import user from "../assets/user.png"
 import {  Link, useParams } from 'react-router-dom'
 import { Button, Modal, Table,Form } from 'react-bootstrap'
+import { useUserAuth } from '../context/UserAuthcontext'
 function Groups() {
+  const {username}=useUserAuth();
   const [grpmember,setgrpmember]=useState([]);
   const [memloading,setmemloading]=useState(false);
   const [exloading,setexloading]=useState(false);
@@ -88,7 +90,7 @@ console.log(groupid.id);
 
         welcome back
        <p>
-        camila
+        {username}
         </p>
         </div>
        </div>

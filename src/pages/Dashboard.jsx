@@ -12,13 +12,13 @@ function Dashboard() {
   const [grpdata, setgrpdata] = useState([])
   const [persondata, setpersondata] = useState([])
   const [loading, setloading] = useState(false);
-const navigate=useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     getgrpdata();
     getpersondata();
   }, [])
 
-const {username,setusername,filexp,filesuperexp}=useUserAuth();
+  const { username, setusername, filexp, filesuperexp } = useUserAuth();
 
 
 
@@ -27,6 +27,10 @@ const {username,setusername,filexp,filesuperexp}=useUserAuth();
     const data = await result.json();
     setgrpdata(data);
   }
+
+
+
+
   localStorage.removeItem("id");
   async function getpersondata() {
     const token = localStorage.getItem("token");
@@ -38,11 +42,14 @@ const {username,setusername,filexp,filesuperexp}=useUserAuth();
     setpersondata(data);
     setloading(true);
   }
+
+
   if (loading) {
-    
+
     setusername(persondata[0].name)
     localStorage.setItem("pid", persondata[0].person_id)
   }
+
   // console.log(username);
   // console.log(grpdata);
   // console.log(persondata[0].email);
@@ -67,9 +74,16 @@ const {username,setusername,filexp,filesuperexp}=useUserAuth();
               <div className='rs'>
 
                 welcome back
-                <p>
-                  camila
+                  {
+                    loading ? (
+                      
+                      <p>
+                      { persondata[0].name }
                 </p>
+                    ) : (
+                      null
+                    )
+                  }
               </div>
             </div>
             <div className='out'><img src={s1} alt="" style={{ width: "25px", height: "25px" }} />Sign Out</div>
@@ -104,67 +118,67 @@ const {username,setusername,filexp,filesuperexp}=useUserAuth();
             </div>
           </div>
           <div className='downmentos'>
-           
-         {
-              filexp?
-              (
-                <Table >
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Person</th>
-                    <th>Amount</th>
-    
-                  </tr>
-                </thead>
-                {
-                  filexp.map((data) => {
-                    let cost=data.totalprice
-                    let num=data.member.length
-                  return  data.member.map((d)=>(
-                    d!=username ?(
-                      <tbody>
-                      <tr >
-                     <td>#</td>
-                     
-                      <td>{d}</td>
-                      <td>+{cost/num}</td>
-                   </tr>
-                 </tbody>
-                    ):(<div></div>)
-                  
-                        ))
-    
-    
-})}
-                {
-                  filesuperexp.map((data) => {
-                    let nam=data.payer
-                    let cost =data.totalprice
-                    let num=data.member.length
-                    return data.member.map((d)=>(
-                    d==nam ?(
-                      <tbody>
-                      <tr >
-                     <td>#</td>
-                     
-                      <td>{d}</td>
-                      <td>-{cost/num}</td>
-                   </tr>
-                 </tbody>
-                    ):(<div></div>)
-                  
-                        ))
-    
-    
-                    })}
-                </Table>
-              ):(
-                <div></div>
 
-              )
+            {
+              filexp ?
+                (
+                  <Table >
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Person</th>
+                        <th>Amount</th>
+
+                      </tr>
+                    </thead>
+                    {
+                      filexp.map((data) => {
+                        let cost = data.totalprice
+                        let num = data.member.length
+                        return data.member.map((d) => (
+                          d != username ? (
+                            <tbody>
+                              <tr >
+                                <td>#</td>
+
+                                <td>{d}</td>
+                                <td>+{cost / num}</td>
+                              </tr>
+                            </tbody>
+                          ) : (<div></div>)
+
+                        ))
+
+
+                      })}
+                    {
+                      filesuperexp.map((data) => {
+                        let nam = data.payer
+                        let cost = data.totalprice
+                        let num = data.member.length
+                        return data.member.map((d) => (
+                          d == nam ? (
+                            <tbody>
+                              <tr >
+                                <td>#</td>
+
+                                <td>{d}</td>
+                                <td>-{cost / num}</td>
+                              </tr>
+                            </tbody>
+                          ) : (<div></div>)
+
+                        ))
+
+
+                      })}
+                  </Table>
+                ) : (
+                  <div></div>
+
+                )
             }
-            
+
 
           </div>
         </div>
@@ -182,7 +196,7 @@ const {username,setusername,filexp,filesuperexp}=useUserAuth();
             </thead>
             {grpdata.map((data) => (
               <tbody>
-                <tr onClick={()=>navigate(`/groups/${data.group_id}`)} >
+                <tr onClick={() => navigate(`/groups/${data.group_id}`)} >
                   <td>#</td>
                   <td >{data.grpname}</td>
 

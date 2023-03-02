@@ -23,7 +23,7 @@ function Dashboard() {
 
 
   async function getgrpdata() {
-    const result = await fetch(`http://localhost:5000/group/${localStorage.getItem("pid")}`)
+    const result = await fetch(`http://localhost:5000/group/${username}`)
     const data = await result.json();
     setgrpdata(data);
   }

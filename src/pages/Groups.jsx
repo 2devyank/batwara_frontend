@@ -28,9 +28,9 @@ console.log(groupid.id);
     getexpense();
   },[])
 
-  const id =localStorage.getItem("pid");
+  // const id =localStorage.getItem("pid");
   async function getgrpmates() {
-    const result = await fetch(`http://localhost:5000/group/${id}`)
+    const result = await fetch(`http://localhost:5000/group/${username}`)
     const data = await result.json();
     setgrpmember(data);
     setmemloading(true);

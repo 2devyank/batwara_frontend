@@ -9,14 +9,15 @@ import user from "../assets/user.png"
 import {  Link, useParams } from 'react-router-dom'
 import { Button, Modal, Table,Form } from 'react-bootstrap'
 import { useUserAuth } from '../context/UserAuthcontext'
+import Rightgroup from '../components/Rightgroup'
 function Groups() {
   const {username}=useUserAuth();
-  const [grpmember,setgrpmember]=useState([]);
-  const [memloading,setmemloading]=useState(false);
+  
+ 
   const [exloading,setexloading]=useState(false);
   const [ex,setex]=useState([]);
 const groupid=useParams();
-console.log(groupid.id);
+// console.log(groupid.id);
   async function getexpense() {
     const result = await fetch(`http://localhost:5000/expense/${groupid.id}`)
     const data = await result.json();
@@ -24,18 +25,11 @@ console.log(groupid.id);
     setexloading(true);
   }
   useEffect(()=>{
-    getgrpmates();
+ 
     getexpense();
   },[])
 
-  // const id =localStorage.getItem("pid");
-  async function getgrpmates() {
-    const result = await fetch(`http://localhost:5000/group/${username}`)
-    const data = await result.json();
-    setgrpmember(data);
-    setmemloading(true);
-  }
-  console.log(ex);
+ 
 
 
 
@@ -153,7 +147,8 @@ console.log(groupid.id);
 
 
     <div className='grpmembers'>
-    <h3>
+      <Rightgroup id={groupid.id}/>
+    {/* <h3>
         Group Members
         </h3>
         {
@@ -183,7 +178,7 @@ console.log(groupid.id);
            
           </Table>
           )
-        }
+        } */}
     
     </div>
     </div>

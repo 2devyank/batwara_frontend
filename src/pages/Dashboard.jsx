@@ -14,26 +14,16 @@ function Dashboard() {
   const handleShow = () => setShow(true);
   // const handleClose = () => setShow(false);
  
-  const [grpdata, setgrpdata] = useState([])
+  
   const [persondata, setpersondata] = useState([])
   const [loading, setloading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    getgrpdata();
+ 
     getpersondata();
   }, [])
 
   const {  filexp, filesuperexp } = useUserAuth();
-
-
-
-  async function getgrpdata() {
-    const result = await fetch(`http://localhost:5000/group/${username}`)
-    const data = await result.json();
-    setgrpdata(data);
-  }
-
-
 
 
   localStorage.removeItem("id");

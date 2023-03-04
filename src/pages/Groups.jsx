@@ -51,7 +51,8 @@ console.log(groupid.id);
   try{
 
     const expense_id=Math.random().toString(3).slice(-4);
-    const body={expense_id,payer,topic,totalprice,group_id}
+   let member=grpmember[0].grpmember;
+    const body={expense_id,payer,topic,totalprice,group_id,member}
     const result=await fetch("http://localhost:5000/expense",{
       method:"POST",
       headers:{"Content-type":"application/json"},

@@ -8,6 +8,7 @@ import user from "../assets/user.png"
 import {  Link, useNavigate } from 'react-router-dom'
 import { Form,Button, Modal, Table } from 'react-bootstrap'
 import { useUserAuth } from '../context/UserAuthcontext'
+import Rightdash from '../components/Rightdash'
 function Dashboard() {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
@@ -22,7 +23,7 @@ function Dashboard() {
     getpersondata();
   }, [])
 
-  const { username, setusername, filexp, filesuperexp } = useUserAuth();
+  const {  filexp, filesuperexp } = useUserAuth();
 
 
 
@@ -50,10 +51,10 @@ function Dashboard() {
 
   if (loading) {
 
-    setusername(persondata[0].name)
+localStorage.setItem("username",persondata[0].name)
     localStorage.setItem("pid", persondata[0].person_id)
   }
-
+let username=localStorage.getItem("username");
   // console.log(username);
   // console.log(grpdata);
   // console.log(persondata[0].email);
@@ -64,7 +65,7 @@ function Dashboard() {
 
   const [grpname, setgrpname] = useState("");
   const [input, setinput] = useState("");
-  const [grpmember, setgrpmember] = useState([]);
+  const [grpmember, setgrpmember] = useState([username]);
   const [list, setlist] = useState([]);
 
 
@@ -108,7 +109,7 @@ async function postgroup(e){
     console.log(e)
   }
 }
-
+console.log(filexp);
   return (
     <>
 
@@ -191,8 +192,10 @@ async function postgroup(e){
                       filexp.map((data) => {
                         let cost = data.totalprice
                         let num = data.member.length
-                        return data.member.map((d) => (
-                          d != username ? (
+                        if(data.member!==null){
+
+                          return data.member.map((d) => (
+                            d != username ? (
                             <tbody>
                               <tr >
                                 <td>#</td>
@@ -202,8 +205,9 @@ async function postgroup(e){
                               </tr>
                             </tbody>
                           ) : (<div></div>)
-
-                        ))
+                          
+                          ))
+                        }
 
 
                       })}
@@ -239,29 +243,7 @@ async function postgroup(e){
           </div>
         </div>
         <div className="rightbar">
-          <h2>
-            My Groups
-          </h2>
-          <Table >
-            <thead>
-              <tr>
-                <th>#</th>
-                <th >Group Name</th>
-
-              </tr>
-            </thead>
-            {grpdata.map((data) => (
-              <tbody>
-                <tr onClick={() => navigate(`/groups/${data.group_id}`)} >
-                  <td>#</td>
-                  <td >{data.grpname}</td>
-
-                </tr>
-
-              </tbody>
-            ))}
-
-          </Table>
+          <Rightdash username={username}/>
         </div>
       </div>
 

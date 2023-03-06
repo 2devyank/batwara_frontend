@@ -5,7 +5,7 @@ const UserAuth=createContext();
 // const name="dev"
 
 
-const UserAuthProvider=({children})=>{
+export  function UserAuthProvider({children}){
     const [username,setusername]=useState();
 const[exp,setexp]=useState([]);
 const[load,setload]=useState(false);
@@ -57,7 +57,9 @@ if(filexp){
 
 
 
-
+const [show, setShow] = useState(false);
+    const handleShow = () => setShow(true);
+  const handlestop = () => setShow(false);
 
 
 
@@ -70,7 +72,7 @@ if(filexp){
     )
 
 }
-export default UserAuthProvider;
+
 
 export function useUserAuth(){
     return useContext(UserAuth);

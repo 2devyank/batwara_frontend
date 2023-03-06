@@ -12,7 +12,7 @@ import Rightdash from '../components/Rightdash'
 function Dashboard() {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
-  // const handleClose = () => setShow(false);
+  const handleClose = () => setShow(false);
  
   
   const [persondata, setpersondata] = useState([])
@@ -23,7 +23,7 @@ function Dashboard() {
     getpersondata();
   }, [])
 
-  const {  filexp, filesuperexp } = useUserAuth();
+  // const {  filexp, filesuperexp } = useUserAuth();
 
 
   localStorage.removeItem("id");
@@ -99,7 +99,7 @@ async function postgroup(e){
     console.log(e)
   }
 }
-console.log(filexp);
+// console.log(filexp);
   return (
     <>
 
@@ -166,7 +166,7 @@ console.log(filexp);
           </div>
           <div className='downmentos'>
 
-            {
+            {/* {
               filexp ?
                 (
                   <Table >
@@ -227,7 +227,7 @@ console.log(filexp);
                   <div></div>
 
                 )
-            }
+            } */}
 
 
           </div>
@@ -239,7 +239,7 @@ console.log(filexp);
 
 
 
-      <Modal show={show} onHide={postgroup}>
+      <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Modal heading</Modal.Title>
       </Modal.Header>

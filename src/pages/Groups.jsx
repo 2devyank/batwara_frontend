@@ -8,61 +8,59 @@ import jg from "../assets/jg.png"
 import user from "../assets/user.png"
 import {  Link, useParams } from 'react-router-dom'
 import { Button, Modal, Table,Form } from 'react-bootstrap'
-import { useUserAuth } from '../context/UserAuthcontext'
+// import { useUserAuth } from '../context/UserAuthcontext'
 import Rightgroup from '../components/Rightgroup'
+import GroupExpenses from '../components/GroupExpenses'
+import { useUserAuth } from '../context/UserAuthcontext'
+import { useDispatch, useSelector } from 'react-redux'
+import { openModal } from '../features/split/split'
+import ExpenseModal from '../components/ExpenseModal'
 function Groups() {
-  const {username}=useUserAuth();
-  
+  // const {username}=useUserAuth();
+  const username=localStorage.getItem("username")
  
-  const [exloading,setexloading]=useState(false);
-  const [ex,setex]=useState([]);
+  
 const groupid=useParams();
 // console.log(groupid.id);
-  async function getexpense() {
-    const result = await fetch(`http://localhost:5000/expense/${groupid.id}`)
-    const data = await result.json();
-    setex(data);
-    setexloading(true);
-  }
-  useEffect(()=>{
  
-    getexpense();
-  },[])
 
  
 
 
 
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const [topic, settopic] = useState("");
   const [payer, setpayer] = useState("");
   const [amount, setamount] = useState("");
 
-  async function handleClose(e){
-    e.preventDefault();
-  const group_id=groupid.id;
-  const totalprice=amount;
-  try{
+  // async function handleClose(e){
+  //   e.preventDefault();
+  // const group_id=groupid.id;
+  // const totalprice=amount;
+  // try{
 
-    const expense_id=Math.random().toString(3).slice(-4);
-   let member=grpmember[0].grpmember;
-    const body={expense_id,payer,topic,totalprice,group_id,member}
-    const result=await fetch("http://localhost:5000/expense",{
-      method:"POST",
-      headers:{"Content-type":"application/json"},
-      body:JSON.stringify(body)
-    })
+  //   const expense_id=Math.random().toString(3).slice(-4);
+  //  let member=grpmember[0].grpmember;
+  //   const body={expense_id,payer,topic,totalprice,group_id,member}
+  //   const result=await fetch("http://localhost:5000/expense",{
+  //     method:"POST",
+  //     headers:{"Content-type":"application/json"},
+  //     body:JSON.stringify(body)
+  //   })
     
-    setShow(false)
-    setpayer("")
-    setamount("")
-    settopic("")
-  }catch(e){
-    console.log(e);
-  }
-  }
-  const handleShow = () => setShow(true);
-
+  //   setShow(false)
+  //   setpayer("")
+  //   setamount("")
+  //   settopic("")
+  // }catch(e){
+  //   console.log(e);
+  // }
+  // }
+  // const handleShow = () => setShow(true);
+  // const handlestop = () => setShow(false);
+const dispatch=useDispatch();
+const {isOpen}=useSelector((store)=>store.split);
+// console.log(isOpen);
   return (
     <>
     <div className="dashboard">
@@ -76,7 +74,7 @@ const groupid=useParams();
        
         <button className='addgroup'> Add Group +</button>
         <button className='addgroup'> Add Member +</button>
-        <button className='addgroup' onClick={handleShow}> Add Expense +</button>
+        <button className='addgroup' onClick={()=>dispatch(openModal())} > Add Expense +</button>
         </div>
         <div className='belowmenu'>
       <div className='back'>
@@ -98,92 +96,22 @@ const groupid=useParams();
 
 
       <div className='grpexpenses'>
-    <h3>Expenses</h3>
-    <div></div>
-    <div>
+        <GroupExpenses id={groupid.id}/>
    
-      {!exloading ?(
-<div></div>
-      ):(
-        <Table >
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>topic</th>
-            <th>payer</th>
-            <th>totalprice</th>
-            {/* <th >{grpmember[0].grpname}</th> */}
-           
-          </tr>
-        </thead>
-        {
-          ex.map((mem)=>(
-            <tbody>
-            <tr>
-              <td>#</td>
-              <td >{mem.topic}</td>
-              <td >{mem.payer}</td>
-              <td >{mem.totalprice}</td>
-          
-            </tr>
-           
-          </tbody>
-          ))
-        }
-        </Table>
-      )}
-      
-     
-    </div>
 
       </div>
 
 
 
 
-
-
-
-
-
     <div className='grpmembers'>
       <Rightgroup id={groupid.id}/>
-    {/* <h3>
-        Group Members
-        </h3>
-        {
-          !memloading ? (
-<div>working ....</div>
-          ) :(
-            <Table >
-            <thead>
-              <tr>
-                <th>#</th>
-                <th >{grpmember[0].grpname}</th>
-               
-              </tr>
-            </thead>
-            
-              {grpmember[0].grpmember.map((mem)=>(
-                <tbody>
-                <tr>
-                  <td>#</td>
-                  <td >{mem}</td>
-              
-                </tr>
-               
-              </tbody>
-              ))}
-            
-           
-          </Table>
-          )
-        } */}
+   
     
     </div>
     </div>
-      <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
+      {/* <Modal show={show} onHide={handleClose}>
+      <Modal.Header >
         <Modal.Title>Modal heading</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -210,12 +138,15 @@ const groupid=useParams();
 
       </Modal.Body>
       <Modal.Footer>
-        
+      <Button variant="primary" onClick={handlestop}>
+         close
+        </Button>
         <Button variant="primary" onClick={handleClose}>
           ADD EXPENSE
         </Button>
       </Modal.Footer>
-    </Modal>
+    </Modal> */}
+    {isOpen&&<ExpenseModal/>}
     </>
   )
 }

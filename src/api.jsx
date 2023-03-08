@@ -15,14 +15,3 @@ export function getallexpensesbyid(id){
     .then(res=>res.data)
 }
 
-export function createexpense({payer,topic,totalprice}){
-    return axios.post("http://localhost:5000/expense",{
-    expense_id:Math.random().toString(3).slice(-4),
-    payer,
-    topic,
-    totalprice,
-    group_id,
-    member,
-
-    })
-}

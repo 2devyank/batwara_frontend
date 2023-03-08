@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Table } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import { getallgroups, getallgroupsmember } from '../api'
+import { addMembers } from '../features/split/split'
 
 export default function Rightgroup({id}) {
 
@@ -14,7 +16,8 @@ export default function Rightgroup({id}) {
     if(groupmemQuery.status==="error") {
       return <h1>{JSON.stringify(groupmemQuery.error)}</h1>
     }
-    // console.log(groupmemQuery.data);
+   
+    
   return (
     <div>
         <h3>

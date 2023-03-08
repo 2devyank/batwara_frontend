@@ -146,7 +146,7 @@ const {isOpen}=useSelector((store)=>store.split);
         </Button>
       </Modal.Footer>
     </Modal> */}
-    {isOpen&&<ExpenseModal/>}
+    {isOpen&&<ExpenseModal id={groupid.id}/>}
     </>
   )
 }

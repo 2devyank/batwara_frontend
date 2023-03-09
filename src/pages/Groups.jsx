@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
 import "../styles/Dashboard.css"
 import "../styles/Groups.css"
 import p1 from "../assets/p1.svg"
 import s1 from "../assets/s1.png"
-import h1 from "../assets/h1.png"
-import jg from "../assets/jg.png"
-import user from "../assets/user.png"
+
 import {  Link, useParams } from 'react-router-dom'
 import { Button, Modal, Table,Form } from 'react-bootstrap'
 // import { useUserAuth } from '../context/UserAuthcontext'
-import Rightgroup from '../components/Rightgroup'
-import GroupExpenses from '../components/GroupExpenses'
+// import Rightgroup from '../components/Rightgroup'
+const Rightgroup=lazy(()=>import("../components/Rightgroup"))
+// import GroupExpenses from '../components/GroupExpenses'
+const GroupExpenses=lazy(()=>import("../components/GroupExpenses"))
 import { useUserAuth } from '../context/UserAuthcontext'
 import { useDispatch, useSelector } from 'react-redux'
 import { openModal } from '../features/split/split'
-import ExpenseModal from '../components/ExpenseModal'
+// import ExpenseModal from '../components/ExpenseModal'
+const ExpenseModal =lazy(()=>import("../components/ExpenseModal"))
 function Groups() {
   // const {username}=useUserAuth();
   const username=localStorage.getItem("username")
@@ -33,31 +34,6 @@ const groupid=useParams();
   const [payer, setpayer] = useState("");
   const [amount, setamount] = useState("");
 
-  // async function handleClose(e){
-  //   e.preventDefault();
-  // const group_id=groupid.id;
-  // const totalprice=amount;
-  // try{
-
-  //   const expense_id=Math.random().toString(3).slice(-4);
-  //  let member=grpmember[0].grpmember;
-  //   const body={expense_id,payer,topic,totalprice,group_id,member}
-  //   const result=await fetch("http://localhost:5000/expense",{
-  //     method:"POST",
-  //     headers:{"Content-type":"application/json"},
-  //     body:JSON.stringify(body)
-  //   })
-    
-  //   setShow(false)
-  //   setpayer("")
-  //   setamount("")
-  //   settopic("")
-  // }catch(e){
-  //   console.log(e);
-  // }
-  // }
-  // const handleShow = () => setShow(true);
-  // const handlestop = () => setShow(false);
 const dispatch=useDispatch();
 const {isOpen}=useSelector((store)=>store.split);
 // console.log(isOpen);
@@ -96,8 +72,9 @@ const {isOpen}=useSelector((store)=>store.split);
 
 
       <div className='grpexpenses'>
+     <Suspense fallback={<div>Loading ...</div>}>
         <GroupExpenses id={groupid.id}/>
-   
+        </Suspense>
 
       </div>
 
@@ -105,48 +82,16 @@ const {isOpen}=useSelector((store)=>store.split);
 
 
     <div className='grpmembers'>
+      <Suspense fallback={<div>Loading ...</div>}>
       <Rightgroup id={groupid.id}/>
+      </Suspense>
    
     
     </div>
     </div>
-      {/* <Modal show={show} onHide={handleClose}>
-      <Modal.Header >
-        <Modal.Title>Modal heading</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-<Form>
-  
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Description</Form.Label>
-    <Form.Control type="description" placeholder="Enter Description" value={topic} onChange={(e)=>settopic(e.target.value)}/>
- 
-  </Form.Group>
-
-  <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Amount</Form.Label>
-    <Form.Control type="amount" placeholder="Enterrr Amount" value={amount} onChange={(e)=>setamount(e.target.value)}/>
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Who Payed</Form.Label>
-    <Form.Control type="name" placeholder="Enter payer" value={payer} onChange={(e)=>setpayer(e.target.value)}/>
- 
-  </Form.Group>
-</Form>
-
-
-
-      </Modal.Body>
-      <Modal.Footer>
-      <Button variant="primary" onClick={handlestop}>
-         close
-        </Button>
-        <Button variant="primary" onClick={handleClose}>
-          ADD EXPENSE
-        </Button>
-      </Modal.Footer>
-    </Modal> */}
+    <Suspense fallback={<div>Loading ...</div>}>
     {isOpen&&<ExpenseModal id={groupid.id}/>}
+    </Suspense>
     </>
   )
 }

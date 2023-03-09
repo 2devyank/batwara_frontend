@@ -9,46 +9,29 @@ import {  Link, useNavigate } from 'react-router-dom'
 import { Form,Button, Modal, Table } from 'react-bootstrap'
 import { useUserAuth } from '../context/UserAuthcontext'
 import Rightdash from '../components/Rightdash'
+import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
+import { getpersondata } from '../api'
 function Dashboard() {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
  
   
-  const [persondata, setpersondata] = useState([])
-  const [loading, setloading] = useState(false);
-  const navigate = useNavigate();
-  useEffect(() => {
  
-    getpersondata();
-  }, [])
-
-  // const {  filexp, filesuperexp } = useUserAuth();
-
+  const navigate = useNavigate();
+  
 
   localStorage.removeItem("id");
-  async function getpersondata() {
-    const token = localStorage.getItem("token");
-    const result = await fetch("http://localhost:5000/user", {
-      method: "GET",
-      headers: { "Authorization": `Bearer ${token}` }
-    })
-    const data = await result.json();
-    setpersondata(data);
-    setloading(true);
-  }
+
+  
+  
+
+ 
 
 
-  if (loading) {
-
-localStorage.setItem("username",persondata[0].name)
-    localStorage.setItem("pid", persondata[0].person_id)
-  }
 let username=localStorage.getItem("username");
-  // console.log(username);
-  // console.log(grpdata);
-  // console.log(persondata[0].email);
-
+  
 
 
 
@@ -100,6 +83,16 @@ async function postgroup(e){
   }
 }
 // console.log(filexp);
+const personQuery=useQuery({
+  queryKey:["person"],
+  queryFn:getpersondata
+})
+
+if(personQuery.status==="loading")return <h1>Loading ...</h1>
+if(personQuery.status==="error"){
+  return <h1>{JSON.stringify(personQuery.error)}</h1>
+}
+localStorage.setItem("username",personQuery.data[0].name)
   return (
     <>
 
@@ -121,16 +114,12 @@ async function postgroup(e){
               <div className='rs'>
 
                 welcome back
-                  {
-                    loading ? (
-                      
+                  
+                    
                       <p>
-                      { persondata[0].name }
+                      { personQuery.data[0].name }
                 </p>
-                    ) : (
-                      null
-                    )
-                  }
+                   
               </div>
             </div>
             <div className='out'><img src={s1} alt="" style={{ width: "25px", height: "25px" }} />Sign Out</div>
@@ -138,17 +127,14 @@ async function postgroup(e){
         </div>
         <div className='middlebar'>
           <div className='mentos'>
-            {loading ? (
+            
               <div className='info'>
                 <img src="" alt="" />
-                <p className='camila'>{persondata[0].name}</p>
-                <p>Phone No : +91 {persondata[0].phone}</p>
-                <p>Email : {persondata[0].email}</p>
+                <p className='camila'>{personQuery.data[0].name}</p>
+                <p>Phone No : +91 {personQuery.data[0].phone}</p>
+                <p>Email : {personQuery.data[0].email}</p>
               </div>
-            ) : (
-              <div>Working ....</div>
-            )
-            }
+           
             <div className='rightinfo'>
               <div className='aboveinfo'>
                 Owe You

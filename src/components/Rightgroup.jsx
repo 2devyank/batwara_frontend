@@ -7,17 +7,27 @@ import { addMembers } from '../features/split/split'
 
 export default function Rightgroup({id}) {
 
-    const groupmemQuery=useQuery({
-        queryKey:["groupsmem",id],
-        queryFn:()=>getallgroupsmember(id)
-    })
+  const groupmemQuery=useQuery({
+    queryKey:["groupsmem",id],
+    queryFn:()=>getallgroupsmember(id)
+  })
+ 
 
+   
+    const dispatch=useDispatch();
+    const {members}=useSelector((store)=>store.split)
+    
+    useEffect(()=>{
+      if(groupmemQuery.status==="success"){
+        dispatch(addMembers(groupmemQuery.data[0].grpmember))
+      }
+    },[groupmemQuery.status==="success"])
     if(groupmemQuery.status==="loading") return <h1>Loading...</h1>
     if(groupmemQuery.status==="error") {
       return <h1>{JSON.stringify(groupmemQuery.error)}</h1>
     }
    
-    
+    console.log(members)
   return (
     <div>
         <h3>

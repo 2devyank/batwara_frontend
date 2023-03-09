@@ -14,4 +14,13 @@ export function getallexpensesbyid(id){
     return axios.get(`http://localhost:5000/expense/${id}`)
     .then(res=>res.data)
 }
+export function getpersondata(){
+      const token = localStorage.getItem("token");
+   
+      return  axios.get("http://localhost:5000/user",{
+        headers:{"Authorization":`Bearer ${token}`}
+      })
+      .then(res=>res.data)
+    
+  }
 

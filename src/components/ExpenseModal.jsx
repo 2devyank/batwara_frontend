@@ -10,15 +10,7 @@ export default function ExpenseModal({id}) {
     
         const {isOpen}=useSelector((store)=>store.split);
         const dispatch=useDispatch();
-        const groupmemQuery=useQuery({
-            queryKey:["groupsmem",id],
-            queryFn:()=>getallgroupsmember(id)
-        })
-    
-        if(groupmemQuery.status==="loading") return <h1>Loading...</h1>
-        if(groupmemQuery.status==="error") {
-          return <h1>{JSON.stringify(groupmemQuery.error)}</h1>
-        }
+       const {members}=useSelector((store)=>store.split)
 
 const payerref=useRef();
 const topicref=useRef();
@@ -32,7 +24,7 @@ const queryClient=useQueryClient();
         topic:topic,
         totalprice:totalprice,
         group_id:id,
-        member:groupmemQuery.data[0].grpmember,
+        member:members,
     
         })
     }

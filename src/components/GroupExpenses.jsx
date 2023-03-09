@@ -36,7 +36,7 @@ export default function GroupExpenses({id}) {
               <td>#</td>
               <td >{mem.topic}</td>
               <td >{mem.payer}</td>
-              <td >{mem.totalprice}</td>
+              <td >₹ {mem.totalprice}</td>
           
             </tr>
            

@@ -19,12 +19,12 @@ const queryClient=useQueryClient();
 
     function createexpense({payer,topic,totalprice}){
         return axios.post("http://localhost:5000/expense",{
-        expense_id:Math.random().toString(3).slice(-4),
+        expense_id:Math.random().toString(3).slice(-5),
         payer:payer,
         topic:topic,
         totalprice:totalprice,
         group_id:id,
-        member:members,
+        member:members[0],
     
         })
     }

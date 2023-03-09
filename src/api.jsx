@@ -14,6 +14,15 @@ export function getallexpensesbyid(id){
     return axios.get(`http://localhost:5000/expense/${id}`)
     .then(res=>res.data)
 }
+export function expenseformember(member){
+    return axios.get(`http://localhost:5000/expensive/${member}`)
+    .then(res=>res.data)
+}
+export function settle(member){
+    return axios.get(`http://localhost:5000/settle/${member}`)
+    .then(res=>res.data)
+}
+
 export function getpersondata(){
       const token = localStorage.getItem("token");
    

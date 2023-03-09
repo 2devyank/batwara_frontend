@@ -4,7 +4,7 @@ import "../styles/Groups.css"
 import p1 from "../assets/p1.svg"
 import s1 from "../assets/s1.png"
 
-import {  Link, useParams } from 'react-router-dom'
+import {  Link, useNavigate, useParams } from 'react-router-dom'
 import { Button, Modal, Table,Form } from 'react-bootstrap'
 // import { useUserAuth } from '../context/UserAuthcontext'
 // import Rightgroup from '../components/Rightgroup'
@@ -25,7 +25,7 @@ const groupid=useParams();
 // console.log(groupid.id);
  
 
- 
+ const navigate=useNavigate()
 
 
 
@@ -63,7 +63,7 @@ const {isOpen}=useSelector((store)=>store.split);
         </p>
         </div>
        </div>
-      <div className='out'><img src={s1} alt=""style={{width:"25px",height:"25px"}} />Sign Out</div>
+      <div className='out' onClick={()=>navigate("/login")}><img src={s1} alt=""style={{width:"25px",height:"25px"}} />Sign Out</div>
         </div>
       </div>
 

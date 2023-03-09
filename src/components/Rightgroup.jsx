@@ -26,8 +26,9 @@ export default function Rightgroup({id}) {
     if(groupmemQuery.status==="error") {
       return <h1>{JSON.stringify(groupmemQuery.error)}</h1>
     }
+    // console.log(members[0]);
    
-    console.log(members)
+   
   return (
     <div>
         <h3>

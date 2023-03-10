@@ -3,14 +3,17 @@ import axios from 'axios';
 import React, { useRef } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Navigate, useNavigate } from 'react-router-dom';
 import { getallgroupsmember } from '../api';
 import { closeModal } from '../features/split/split';
 
-export default function ExpenseModal({id}) {
+export default function ExpenseModal() {
+    const id=localStorage.getItem("groupid")
     
         const {isOpen}=useSelector((store)=>store.split);
         const dispatch=useDispatch();
        const {members}=useSelector((store)=>store.split)
+       const navigate=useNavigate();
 
 const payerref=useRef();
 const topicref=useRef();
@@ -31,10 +34,12 @@ const queryClient=useQueryClient();
 
     const createExpensebygroup=useMutation({
         mutationFn:createexpense,
-        onSuccess:data=>{
+        onSuccess:async(data)=>{
+            console.log(data);
             queryClient.setQueryData(["expenses",data.id],data)
             queryClient.invalidateQueries(["expenses"],{exact:true})
             dispatch(closeModal())
+            navigate(`/groups/${id}`)
         }
     })
     function handleexpense(e){
@@ -48,6 +53,7 @@ const queryClient=useQueryClient();
 
     return (
         <>
+        {createExpensebygroup.isLoading && <div>Loading ...</div>}
             <Modal show={isOpen} >
                 <Modal.Header >
                     <Modal.Title>Modal heading</Modal.Title>
@@ -77,7 +83,7 @@ const queryClient=useQueryClient();
                     <Button variant="primary" onClick={()=>dispatch(closeModal())}>
                         close
                     </Button>
-                    <Button variant="primary" onClick={handleexpense} >
+                    <Button variant="primary" onClick={handleexpense}  >
                         ADD EXPENSE
                     </Button>
                 </Modal.Footer>

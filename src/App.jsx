@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import Groups from './pages/Groups'
 import Navbar from './components/Navb'
 import Navb from './components/Navb'
+import Addexpense from './pages/Addexpense'
 
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
     <Route path="/" element={<Dashboard/>} exact/>
     <Route path="/register" element={<Register/>} exact/>
     <Route path="/login" element={<Login/>} exact/>
+    <Route path="/addexpense" element={<Addexpense/>} exact/>
     <Route path="/groups/:id" element={<Groups/>} exact/>
 
     </Routes>

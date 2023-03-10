@@ -23,6 +23,7 @@ function Groups() {
   
 const groupid=useParams();
 // console.log(groupid.id);
+localStorage.setItem("groupid",groupid.id)
  
 
  const navigate=useNavigate()
@@ -50,7 +51,10 @@ const {isOpen}=useSelector((store)=>store.split);
        
         <button className='addgroup'> Add Group +</button>
         <button className='addgroup'> Add Member +</button>
-        <button className='addgroup' onClick={()=>dispatch(openModal())} > Add Expense +</button>
+        <button className='addgroup' onClick={()=>{
+          navigate("/addexpense")
+          dispatch(openModal())
+          }} > Add Expense +</button>
         </div>
         <div className='belowmenu'>
       <div className='back'>
@@ -90,7 +94,7 @@ const {isOpen}=useSelector((store)=>store.split);
     </div>
     </div>
     <Suspense fallback={<div>Loading ...</div>}>
-    {isOpen&&<ExpenseModal id={groupid.id}/>}
+    
     </Suspense>
     </>
   )

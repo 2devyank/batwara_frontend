@@ -6,10 +6,10 @@ import { getallexpensesbyid } from '../api'
 export default function GroupExpenses({id}) {
   const expenseQuery=useQuery({
     queryKey:["expenses",id],
-    queryFn:()=>getallexpensesbyid(id)
+    queryFn:()=>getallexpensesbyid(id),
   })
   
-  
+  if(expenseQuery.fetchStatus==="fetching")return <h1>fetching ...</h1>
   if(expenseQuery.status==="loading") return <h1>Loading ...</h1>
   if(expenseQuery.status==="error") {
     return <h1>{JSON.stringify(expenseQuery.error)}</h1>

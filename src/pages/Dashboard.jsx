@@ -48,7 +48,7 @@ function Dashboard() {
     setlist(data);
 
   }
-  console.log(list[0]);
+  // console.log(list[0]);
 
 
 
@@ -60,7 +60,7 @@ function Dashboard() {
     
 
   }
-  console.log(grpmember);
+  // console.log(grpmember);
 
   async function postgroup(e) {
     let person_id = localStorage.getItem("pid")
@@ -149,72 +149,6 @@ function Dashboard() {
           <div className='downmentos'>
             <Transaction member={username}/>
             <Settle member={username}/>
-
-
-            {/* {
-              filexp ?
-                (
-                  <Table >
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Person</th>
-                        <th>Amount</th>
-
-                      </tr>
-                    </thead>
-                    {
-                      filexp.map((data) => {
-                        let cost = data.totalprice
-                        let num = data.member.length
-                        if(data.member!==null){
-
-                          return data.member.map((d) => (
-                            d != username ? (
-                            <tbody>
-                              <tr >
-                                <td>#</td>
-
-                                <td>{d}</td>
-                                <td>+{cost / num}</td>
-                              </tr>
-                            </tbody>
-                          ) : (<div></div>)
-                          
-                          ))
-                        }
-
-
-                      })}
-                    {
-                      filesuperexp.map((data) => {
-                        let nam = data.payer
-                        let cost = data.totalprice
-                        let num = data.member.length
-                        return data.member.map((d) => (
-                          d == nam ? (
-                            <tbody>
-                              <tr >
-                                <td>#</td>
-
-                                <td>{d}</td>
-                                <td>-{cost / num}</td>
-                              </tr>
-                            </tbody>
-                          ) : (<div></div>)
-
-                        ))
-
-
-                      })}
-                  </Table>
-                ) : (
-                  <div></div>
-
-                )
-            } */}
-
-
           </div>
         </div>
         <div className="rightbar">

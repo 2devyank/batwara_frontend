@@ -13,7 +13,8 @@ export default function Settle({member}) {
         if(settleQuery.status==="error"){
         return <h1>{JSON.stringify(settleQuery.error)}</h1>
     }
-    console.log(settleQuery.data)
+    let tot=0;
+    // console.log(settleQuery.data)
   return (
     <div>
          <Table >
@@ -30,6 +31,8 @@ export default function Settle({member}) {
                         let nam = data.payer
                         let cost = data.totalprice
                         let num = data.member.length
+                        tot+=cost/num;
+                        localStorage.setItem("youowe",tot)
                         return data.member.map((d) => (
                           d == nam ? (
                             <tbody>
@@ -37,7 +40,7 @@ export default function Settle({member}) {
                                 <td>#</td>
 
                                 <td>{d}</td>
-                                <td className="retrn">- ₹ {cost / num}</td>
+                                <td className="retrn">- ₹ {(cost / num).toFixed(1)}</td>
                               </tr>
                             </tbody>
                           ) : (<div></div>)

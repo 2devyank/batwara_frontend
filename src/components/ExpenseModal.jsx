@@ -27,7 +27,7 @@ const queryClient=useQueryClient();
         topic:topic,
         totalprice:totalprice,
         group_id:id,
-        member:members[0],
+        member:members[members.length-1],
     
         })
     }
@@ -56,7 +56,7 @@ const queryClient=useQueryClient();
         {createExpensebygroup.isLoading && <div>Loading ...</div>}
             <Modal show={isOpen} >
                 <Modal.Header >
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Create Expense</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -80,7 +80,11 @@ const queryClient=useQueryClient();
 
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={()=>dispatch(closeModal())}>
+                    <Button variant="primary" onClick={()=>{
+                        
+                        dispatch(closeModal())
+                        navigate(`/groups/${id}`)
+                    }}>
                         close
                     </Button>
                     <Button variant="primary" onClick={handleexpense}  >

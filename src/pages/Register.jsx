@@ -23,7 +23,7 @@ function Register() {
         headers:{"Content-type":"application/json"},
         body:JSON.stringify(body)
       }) 
-      navigate("/login");
+      navigate("/");
       
     }catch(e){
       console.log(e);
@@ -50,7 +50,7 @@ function Register() {
             </Link>
             </button>
             <button className='dash'>
-              <Link style={{textDecoration:"none",color:"black"}} to="/login">
+              <Link style={{textDecoration:"none",color:"black"}} to="/">
               LogIn
               </Link>
               </button>

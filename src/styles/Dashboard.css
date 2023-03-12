@@ -2,11 +2,13 @@
     display: flex;
     background-color: rgb(14, 24, 37) ;
     color: rgb(68, 131, 202);
+    height: 90vh;
 }
 .leftbar{
     width: 20%;
-    height: 90vh;
-    border: 1px solid red;
+    height: 100%;
+    /* border: 1px solid red; */
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,13 +17,16 @@
 }
 .middlebar{
     width: 50%;
-    height: 90vh;
-    border: 1px solid red;
+    height: 100%;
+    /* border: 1px solid red; */
+    border-left: 1px solid white;
+    border-right: 1px solid white;
 }
 .rightbar{
     width: 30%;
-    height: 90vh;
-    border: 1px solid red;
+    height: 100%;
+    /* border: 1px solid red; */
+    overflow-y: auto;
 }
 .menu{
     display: flex;
@@ -80,6 +85,7 @@
     display: flex;
     flex-direction: column;
     padding:50px 50px;
+    gap: 10px;
 }
 .rightinfo{
     /* border: 1px solid white; */
@@ -88,6 +94,7 @@
     /* height: 50%; */
     display: flex;
     flex-direction: column;
+   
 }
 .aboveinfo{
     color: white;
@@ -130,6 +137,28 @@
 .rightbar table{
     color: white;
 }
+.downmentos{
+    /* border: 1px solid red; */
+    display: flex;
+    height: 50%;
+    width: 100%;
+    gap: 10px;
+}
+.tr{
+    height: 100%;
+    width: 46%;
+    overflow-y: auto;
+    border: 1px solid white;
+    border-radius: 1rem;
+}
+.se{
+    height: 100%;
+    width: 46%;
+    overflow-y: auto;
+    border: 1px solid white;
+    border-radius: 1rem;
+}
 .downmentos table{
     color: white;
+    
 }

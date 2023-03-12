@@ -8,6 +8,7 @@ import Groups from './pages/Groups'
 import Navbar from './components/Navb'
 import Navb from './components/Navb'
 import Addexpense from './pages/Addexpense'
+import Addgroup from './pages/Addgroup'
 
 function App() {
   
@@ -17,9 +18,10 @@ function App() {
    <Navb/>
    <div>
     <Routes>
-    <Route path="/" element={<Dashboard/>} exact/>
+    <Route path="/dash" element={<Dashboard/>} exact/>
+    <Route path="/addgroup" element={<Addgroup/>} exact/>
     <Route path="/register" element={<Register/>} exact/>
-    <Route path="/login" element={<Login/>} exact/>
+    <Route path="/" element={<Login/>} exact/>
     <Route path="/addexpense" element={<Addexpense/>} exact/>
     <Route path="/groups/:id" element={<Groups/>} exact/>
 

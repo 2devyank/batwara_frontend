@@ -1,31 +1,59 @@
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import React, { useState } from 'react'
 import { Table } from 'react-bootstrap'
 import { expenseformember, settle } from '../api'
 import "../styles/Trans.css"
 
 export default function Transaction({member}) {
   console.log(member)
-    // const settleQuery=useQuery({
-    //     queryKey:["expenses",member],
-    //     queryFn:()=>settle(member)
-    // })
+    
 
     const transQuery=useQuery({
       queryKey:["expens",member],
       queryFn:()=>expenseformember(member)
   })
-    // if(settleQuery.status==="loading")return <h1>Loading ...</h1>
-    // if(settleQuery.status==="error"){
-    //     return <h1>{JSON.stringify(settleQuery.error)}</h1>
-    // }
+    
     
     if(transQuery.status==="loading")return <h1>Loading ...</h1>
     if(transQuery.status==="error"){
         return <h1>{JSON.stringify(transQuery.error)}</h1>
     }
-    console.log(transQuery.data);
+    // console.log(transQuery.data);
     // console.log(settleQuery.data);
+    let tot=0;
+    // console.log(tot);
+let mon=[];
+    // const [mon,setmon]=useState([])
+    let obj={}
+
+    
+    transQuery.data.map((data) => {
+      let cost = data.totalprice
+      let num = data.member.length
+      
+      if(data.member!==null){
+        
+        return data.member.map((d) => (
+          d != member ? (
+            <div>
+        {    obj={payer:"",cost:""}}
+        {console.log(d)}
+             { obj.payer=d}
+              {obj.cost=(cost/num).toFixed(1).toString()
+              }
+{mon.push(obj)}
+              
+                   </div>
+            
+        ) : (<div></div>)
+        
+        ))
+      }
+
+
+     })
+     console.log(mon)
+    
   return (
     <div>
         
@@ -42,8 +70,9 @@ export default function Transaction({member}) {
                      transQuery.data.map((data) => {
                         let cost = data.totalprice
                         let num = data.member.length
+                        
                         if(data.member!==null){
-
+                          
                           return data.member.map((d) => (
                             d != member ? (
                             <tbody>
@@ -51,7 +80,7 @@ export default function Transaction({member}) {
                                 <td>#</td>
 
                                 <td>{d}</td>
-                                <td className='get'>+ ₹ {cost / num}</td>
+                                <td className='get'>+ ₹ {(cost / num).toFixed(1)}</td>
                               </tr>
                             </tbody>
                           ) : (<div></div>)
@@ -61,27 +90,7 @@ export default function Transaction({member}) {
 
 
                        })} 
-                    {/* {
-                      settleQuery.data.map((data) => {
-                        let nam = data.payer
-                        let cost = data.totalprice
-                        let num = data.member.length
-                        return data.member.map((d) => (
-                          d == nam ? (
-                            <tbody>
-                              <tr >
-                                <td>#</td>
-
-                                <td>{d}</td>
-                                <td>-{cost / num}</td>
-                              </tr>
-                            </tbody>
-                          ) : (<div></div>)
-
-                        ))
-
-
-                      })} */}
+                    
                   </Table>
     </div>
   )

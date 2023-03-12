@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import UserAuthProvider from './context/UserAuthcontext';
 import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { UserAuthProvider } from './context/UserAuthcontext';
+
 import { Provider } from 'react-redux';
 import { store } from './store';
 

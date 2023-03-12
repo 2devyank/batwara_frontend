@@ -22,7 +22,7 @@ localStorage.removeItem("token");
       const data=await result.json();
       console.log(data)
       localStorage.setItem("token",data.accessToken);
-      navigate("/")
+      navigate("/dash")
     }catch(e){
       console.log(e);
     }
@@ -39,7 +39,7 @@ localStorage.removeItem("token");
         </Link>
         </button>
         <button className='dash'>
-          <Link style={{textDecoration:"none",color:"black"}} to="/login">
+          <Link style={{textDecoration:"none",color:"black"}} to="/">
           LogIn
           </Link>
           </button>

@@ -6,16 +6,15 @@ import s1 from "../assets/s1.png"
 
 import {  Link, useNavigate, useParams } from 'react-router-dom'
 import { Button, Modal, Table,Form } from 'react-bootstrap'
-// import { useUserAuth } from '../context/UserAuthcontext'
-// import Rightgroup from '../components/Rightgroup'
+
 const Rightgroup=lazy(()=>import("../components/Rightgroup"))
 // import GroupExpenses from '../components/GroupExpenses'
 const GroupExpenses=lazy(()=>import("../components/GroupExpenses"))
-import { useUserAuth } from '../context/UserAuthcontext'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { openModal } from '../features/split/split'
 // import ExpenseModal from '../components/ExpenseModal'
-const ExpenseModal =lazy(()=>import("../components/ExpenseModal"))
+
 function Groups() {
   // const {username}=useUserAuth();
   const username=localStorage.getItem("username")
@@ -43,14 +42,14 @@ const {isOpen}=useSelector((store)=>store.split);
     <div className="dashboard">
            <div className='leftbar'>
         <div className="menu">
-        <span><Link to="/"  className='dashboarding'>
+        <button className='addgroup' onClick={()=>navigate("/dash")}>
     {/* <img src={h1} alt="" style={{width:"20px",height:"20px"}} /> */}
         Dashboard
-        </Link>
-        </span>
        
-        <button className='addgroup'> Add Group +</button>
-        <button className='addgroup'> Add Member +</button>
+        </button>
+       
+        {/* <button className='addgroup'> Add Group +</button>
+        <button className='addgroup'> Add Member +</button> */}
         <button className='addgroup' onClick={()=>{
           navigate("/addexpense")
           dispatch(openModal())
@@ -67,7 +66,7 @@ const {isOpen}=useSelector((store)=>store.split);
         </p>
         </div>
        </div>
-      <div className='out' onClick={()=>navigate("/login")}><img src={s1} alt=""style={{width:"25px",height:"25px"}} />Sign Out</div>
+      <div className='out' onClick={()=>navigate("/")}><img src={s1} alt=""style={{width:"25px",height:"25px"}} />Sign Out</div>
         </div>
       </div>
 

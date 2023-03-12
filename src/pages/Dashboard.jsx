@@ -7,17 +7,19 @@ import jg from "../assets/jg.png"
 import user from "../assets/user.png"
 import { Link, useNavigate } from 'react-router-dom'
 import { Form, Button, Modal, Table } from 'react-bootstrap'
-import { useUserAuth } from '../context/UserAuthcontext'
+
 import Rightdash from '../components/Rightdash'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { getpersondata } from '../api'
 import Transaction from '../components/Transaction'
 import Settle from '../components/Settle'
+import { useDispatch } from 'react-redux'
+import { openModal } from '../features/split/group'
 function Dashboard() {
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+  // const [show, setShow] = useState(false);
+  // const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
 
 
 
@@ -29,55 +31,56 @@ function Dashboard() {
   
   
   let username = localStorage.getItem("username");
+  const dispatch=useDispatch();
 
 
 
-  const [grpname, setgrpname] = useState("");
-  const [input, setinput] = useState("");
-  const [grpmember, setgrpmember] = useState([username]);
-  const [list, setlist] = useState([]);
+  // const [grpname, setgrpname] = useState("");
+  // const [input, setinput] = useState("");
+  // const [grpmember, setgrpmember] = useState([username]);
+  // const [list, setlist] = useState([]);
 
 
-  useEffect(() => {
-    getmember(input);
-  }, [input]);
-  async function getmember(query) {
-    // e.preventDefault();
-    const result = await fetch(`http://localhost:5000/user/${query}`)
-    const data = await result.json();
-    setlist(data);
+  // useEffect(() => {
+  //   getmember(input);
+  // }, [input]);
+  // async function getmember(query) {
+  //   // e.preventDefault();
+  //   const result = await fetch(`http://localhost:5000/user/${query}`)
+  //   const data = await result.json();
+  //   setlist(data);
 
-  }
+  // }
   // console.log(list[0]);
 
 
 
-  const handleadd = (e) => {
-    e.preventDefault();
-    setgrpmember(prevState => [...prevState, list[0].name]);
-    // setlist('')
-    setinput('')
+  // const handleadd = (e) => {
+  //   e.preventDefault();
+  //   setgrpmember(prevState => [...prevState, list[0].name]);
+  //   // setlist('')
+  //   setinput('')
     
 
-  }
+  // }
   // console.log(grpmember);
 
-  async function postgroup(e) {
-    let person_id = localStorage.getItem("pid")
-    let group_id = Math.random().toString(6).slice(-5);
-    try {
+  // async function postgroup(e) {
+  //   let person_id = localStorage.getItem("pid")
+  //   let group_id = Math.random().toString(6).slice(-5);
+  //   try {
 
-      const body = { group_id, person_id, grpname, grpmember }
-      const result = await fetch("http://localhost:5000/group", {
-        method: "POST",
-        headers: { "Content-Type": "Application/json" },
-        body: JSON.stringify(body)
-      })
-      setShow(false);
-    } catch (e) {
-      console.log(e)
-    }
-  }
+  //     const body = { group_id, person_id, grpname, grpmember }
+  //     const result = await fetch("http://localhost:5000/group", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "Application/json" },
+  //       body: JSON.stringify(body)
+  //     })
+  //     setShow(false);
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
   // console.log(filexp);
   const personQuery = useQuery({
     queryKey: ["person"],
@@ -95,14 +98,21 @@ function Dashboard() {
       <div className='dashboard'>
         <div className='leftbar'>
           <div className="menu">
-            <span><Link to="/" className='dashboarding'>
-              <img src={h1} alt="" style={{ width: "20px", height: "20px" }} />
+            <button className='addgroup' onClick={()=>navigate("/dash")}>
+              {/* <img src={h1} alt="" style={{ width: "20px", height: "20px" }} /> */}
               Dashboard
-            </Link>
-            </span>
-
-            <button className='addgroup' onClick={handleShow}> <img src={jg} alt="" style={{ width: "30px", height: "30px" }} />Add Group +</button>
-            <button className='addgroup'> <img src={user} alt="" style={{ width: "30px", height: "30px" }} />Add Member +</button>
+           
+            </button>
+            <button className='addgroup' onClick={()=>{
+              navigate("/addgroup")
+              dispatch(openModal());
+            }}>
+               {/* <img src={jg} alt="" style={{ width: "30px", height: "30px" }} /> */}
+               Add Group +</button>
+            <button className='addgroup'> 
+            {/* <img src={user} alt="" style={{ width: "30px", height: "30px" }}  */}
+            {/* /> */}
+            Add Member +</button>
           </div>
           <div className='belowmenu'>
             <div className='back'>
@@ -118,7 +128,7 @@ function Dashboard() {
 
               </div>
             </div>
-            <div className='out' onClick={() => navigate("/login")}><img src={s1} alt="" style={{ width: "25px", height: "25px" }} />Sign Out</div>
+            <div className='out' onClick={() => navigate("/")}><img src={s1} alt="" style={{ width: "25px", height: "25px" }} />Sign Out</div>
           </div>
         </div>
         <div className='middlebar'>
@@ -147,8 +157,14 @@ function Dashboard() {
             </div>
           </div>
           <div className='downmentos'>
+            <div className='tr'>
             <Transaction member={username}/>
+
+            </div>
+            <div className='se'>
+
             <Settle member={username}/>
+            </div>
           </div>
         </div>
         <div className="rightbar">
@@ -158,7 +174,7 @@ function Dashboard() {
 
 
 
-      <Modal show={show} onHide={handleClose}>
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
@@ -173,10 +189,10 @@ function Dashboard() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Add Group Member</Form.Label>
-              {/* {grpmember.map((data)=>{
+              {grpmember.map((data)=>{
 return <span>{data}</span>
     }
-  )} */}
+  )}
               <Form.Control type="name" placeholder="Enterrr Member" value={input} onChange={(e) => setinput(e.target.value)} />
 
               {list.map((li) => {
@@ -199,7 +215,7 @@ return <span>{data}</span>
             CREATE GROUP
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
 
     </>
   )

@@ -1,0 +1,16 @@
+.under{
+    display: flex;
+   justify-content: space-between;
+   background: lightblue;
+   padding: 5px 5px;
+}
+.under button{
+    background-color: green;
+    color: white;
+}
+.bos{
+    width: 20%;
+    text-align: center;
+    background: lightblue;
+    padding: 5px 5px;
+}

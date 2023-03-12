@@ -15,6 +15,7 @@ export default function Settle({member}) {
     }
     let tot=0;
     // console.log(settleQuery.data)
+    localStorage.removeItem("youowe")
   return (
     <div>
          <Table >
@@ -32,7 +33,7 @@ export default function Settle({member}) {
                         let cost = data.totalprice
                         let num = data.member.length
                         tot+=cost/num;
-                        localStorage.setItem("youowe",tot)
+                        localStorage.setItem("youowe",tot.toFixed(1))
                         return data.member.map((d) => (
                           d == nam ? (
                             <tbody>

@@ -18,14 +18,10 @@ export default function Transaction({member}) {
     if(transQuery.status==="error"){
         return <h1>{JSON.stringify(transQuery.error)}</h1>
     }
-    // console.log(transQuery.data);
-    // console.log(settleQuery.data);
-    let tot=0;
-    // console.log(tot);
-let mon=[];
-    // const [mon,setmon]=useState([])
-    let obj={}
 
+    let tot=0;
+
+localStorage.removeItem("get")
     
     transQuery.data.map((data) => {
       let cost = data.totalprice
@@ -36,12 +32,10 @@ let mon=[];
         return data.member.map((d) => (
           d != member ? (
             <div>
-        {    obj={payer:"",cost:""}}
-        {console.log(d)}
-             { obj.payer=d}
-              {obj.cost=(cost/num).toFixed(1).toString()
-              }
-{mon.push(obj)}
+             
+             {tot+=cost/num}
+
+      {localStorage.setItem("get",tot.toFixed(1))}
               
                    </div>
             
@@ -52,7 +46,7 @@ let mon=[];
 
 
      })
-     console.log(mon)
+    //  console.log(mon)
     
   return (
     <div>
@@ -78,6 +72,7 @@ let mon=[];
                             <tbody>
                               <tr >
                                 <td>#</td>
+                               
 
                                 <td>{d}</td>
                                 <td className='get'>+ ₹ {(cost / num).toFixed(1)}</td>

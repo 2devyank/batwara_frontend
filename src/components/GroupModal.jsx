@@ -3,6 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { closeModal } from '../features/split/group';
+import "../styles/Add.css"
 // import { Form } from 'react-router-dom'
 
 export default function GroupModal() {
@@ -83,10 +84,10 @@ return <span>{data}</span>
   )} */}
               <Form.Control type="name" placeholder="Enterrr Member" value={input} onChange={(e) => setinput(e.target.value)} />
 
-              {list.map((li) => {
-                return <div>
+              {list.map((li,i) => {
+                return <div className='under'>
 
-                  <span>{li.email}</span>
+                  <span key={i}>{li.email}</span>
                   <button onClick={handleadd}>ADD</button>
                 </div>
               })}

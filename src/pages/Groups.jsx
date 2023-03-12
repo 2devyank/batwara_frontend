@@ -5,51 +5,48 @@ import p1 from "../assets/p1.svg"
 import s1 from "../assets/s1.png"
 
 import {  Link, useNavigate, useParams } from 'react-router-dom'
-import { Button, Modal, Table,Form } from 'react-bootstrap'
+
 
 const Rightgroup=lazy(()=>import("../components/Rightgroup"))
-// import GroupExpenses from '../components/GroupExpenses'
+
 const GroupExpenses=lazy(()=>import("../components/GroupExpenses"))
 
 import { useDispatch, useSelector } from 'react-redux'
 import { openModal } from '../features/split/split'
-// import ExpenseModal from '../components/ExpenseModal'
+import { openMember } from '../features/split/member'
+
 
 function Groups() {
-  // const {username}=useUserAuth();
+
   const username=localStorage.getItem("username")
  
   
 const groupid=useParams();
-// console.log(groupid.id);
+
 localStorage.setItem("groupid",groupid.id)
  
 
  const navigate=useNavigate()
 
-
-
-  // const [show, setShow] = useState(false);
-  const [topic, settopic] = useState("");
-  const [payer, setpayer] = useState("");
-  const [amount, setamount] = useState("");
-
 const dispatch=useDispatch();
 const {isOpen}=useSelector((store)=>store.split);
-// console.log(isOpen);
+
   return (
     <>
     <div className="dashboard">
            <div className='leftbar'>
         <div className="menu">
         <button className='addgroup' onClick={()=>navigate("/dash")}>
-    {/* <img src={h1} alt="" style={{width:"20px",height:"20px"}} /> */}
+    
         Dashboard
        
         </button>
        
-        {/* <button className='addgroup'> Add Group +</button>
-        <button className='addgroup'> Add Member +</button> */}
+        
+        <button className='addgroup' onClick={()=>{
+          navigate("/addmember")
+          dispatch(openMember())
+        }}> Add Member +</button>
         <button className='addgroup' onClick={()=>{
           navigate("/addexpense")
           dispatch(openModal())
@@ -92,9 +89,7 @@ const {isOpen}=useSelector((store)=>store.split);
     
     </div>
     </div>
-    <Suspense fallback={<div>Loading ...</div>}>
-    
-    </Suspense>
+   
     </>
   )
 }

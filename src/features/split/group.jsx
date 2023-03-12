@@ -6,7 +6,7 @@ const initialState={
 }
 
 const groupSlice=createSlice({
-    name:'split',
+    name:'group',
     initialState,
     reducers:{
         openModal:(state,action)=>{

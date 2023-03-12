@@ -9,6 +9,7 @@ import Navbar from './components/Navb'
 import Navb from './components/Navb'
 import Addexpense from './pages/Addexpense'
 import Addgroup from './pages/Addgroup'
+import Addmember from './pages/Addmember'
 
 function App() {
   
@@ -20,6 +21,7 @@ function App() {
     <Routes>
     <Route path="/dash" element={<Dashboard/>} exact/>
     <Route path="/addgroup" element={<Addgroup/>} exact/>
+    <Route path="/addmember" element={<Addmember/>} exact/>
     <Route path="/register" element={<Register/>} exact/>
     <Route path="/" element={<Login/>} exact/>
     <Route path="/addexpense" element={<Addexpense/>} exact/>

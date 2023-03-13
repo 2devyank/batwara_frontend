@@ -1,6 +1,6 @@
 .grpexpenses{
     width: 50%;
-    height: 91.5vh;
+    height: 100%;
     /* border: 1px solid red; */
     border-left: 1px solid white;
     border-right: 1px solid white;
@@ -8,7 +8,7 @@
 }
 .grpmembers{
     width: 30%;
-    height: 91.5vh;
+    height: 100%;
     overflow-y: auto;
     /* border: 1px solid red; */
 }

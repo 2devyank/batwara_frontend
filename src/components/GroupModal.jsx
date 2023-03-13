@@ -45,7 +45,7 @@ export default function GroupModal() {
       }
     async function postgroup(e) {
         let person_id = localStorage.getItem("pid")
-        let group_id = Math.random().toString(6).slice(-5);
+        let group_id = Math.floor(Math.random()*Date.now()).toString(6).slice(-5);
         try {
     
           const body = { group_id, person_id, grpname, grpmember }

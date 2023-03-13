@@ -22,7 +22,7 @@ const queryClient=useQueryClient();
 
     function createexpense({payer,topic,totalprice}){
         return axios.post("http://localhost:5000/expense",{
-        expense_id:Math.random().toString(3).slice(-5),
+        expense_id:Math.floor(Math.random()*Date.now()).toString(3).slice(-5),
         payer:payer,
         topic:topic,
         totalprice:totalprice,

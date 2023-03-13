@@ -14,12 +14,13 @@ import { useQuery } from '@tanstack/react-query'
 import { getpersondata } from '../api'
 import Transaction from '../components/Transaction'
 import Settle from '../components/Settle'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { openModal } from '../features/split/group'
 function Dashboard() {
  
   const navigate = useNavigate();
 
+  const {getm,givem}=useSelector((store)=>store.split)
   localStorage.removeItem("id");
 
   let username = localStorage.getItem("username");

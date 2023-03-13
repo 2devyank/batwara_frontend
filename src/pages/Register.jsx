@@ -15,7 +15,7 @@ function Register() {
   async function handleregister(e){
     e.preventDefault();
     try{
-      const person_id=Math.random().toString(8).slice(-2);
+      const person_id=Math.floor(Math.random()*Date.now()).toString(8).slice(-2);
       
       const body={person_id,name,email,phone,password};
       const result = await fetch("http://localhost:5000/register",{

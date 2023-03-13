@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import { Table } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 import { expenseformember, settle } from '../api'
+import { getmon } from '../features/split/split'
 import "../styles/Trans.css"
 
 export default function Transaction({member}) {
-  console.log(member)
-    
+  // console.log(member)
+   const dispatch=useDispatch()
 
     const transQuery=useQuery({
       queryKey:["expens",member],
@@ -67,14 +69,14 @@ localStorage.removeItem("get")
                         
                         if(data.member!==null){
                           
-                          return data.member.map((d) => (
+                          return data.member.map((d,i) => (
                             d != member ? (
                             <tbody>
                               <tr >
                                 <td>#</td>
                                
 
-                                <td>{d}</td>
+                                <td key={i}>{d}</td>
                                 <td className='get'>+ ₹ {(cost / num).toFixed(1)}</td>
                               </tr>
                             </tbody>

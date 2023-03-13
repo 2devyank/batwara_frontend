@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState={
     isOpen:false,
-    members:[]
+    members:[],
+    getm:0,
+    givem:0
 }
 
 const splitSlice=createSlice({
@@ -18,9 +20,15 @@ const splitSlice=createSlice({
         },
         addMembers:(state,action)=>{
             state.members=[...state.members,action.payload];
+        },
+        getmon:(state,action)=>{
+            state.getm=action.payload;
+        },
+        givemon:(state,action)=>{
+            state.givem=action.payload;
         }
     }
 })
 
-export const {openModal,closeModal,addMembers}=splitSlice.actions;
+export const {openModal,closeModal,addMembers,getmon,givemon}=splitSlice.actions;
 export default splitSlice.reducer;

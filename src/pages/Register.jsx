@@ -18,7 +18,7 @@ function Register() {
       const person_id=Math.floor(Math.random()*Date.now()).toString(8).slice(-2);
       
       const body={person_id,name,email,phone,password};
-      const result = await fetch("http://localhost:5000/register",{
+      const result = await fetch("https://batwarabackend-production.up.railway.app/register",{
         method:'POST',
         headers:{"Content-type":"application/json"},
         body:JSON.stringify(body)

@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
 import "../styles/Dashboard.css"
 import p1 from "../assets/p1.svg"
 import s1 from "../assets/s1.png"
-import h1 from "../assets/h1.png"
-import jg from "../assets/jg.png"
-import user from "../assets/user.png"
-import { Link, useNavigate } from 'react-router-dom'
-import { Form, Button, Modal, Table } from 'react-bootstrap'
 
-import Rightdash from '../components/Rightdash'
+import { Link, useNavigate } from 'react-router-dom'
+
+
+const Rightdash=lazy(()=>import("../components/Rightdash"))
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { getpersondata } from '../api'
-import Transaction from '../components/Transaction'
-import Settle from '../components/Settle'
+
+const Transaction=lazy(()=>import("../components/Transaction"))
+const Settle=lazy(()=>import("../components/Settle"))
+
 import { useDispatch, useSelector } from 'react-redux'
 import { openModal } from '../features/split/group'
 function Dashboard() {
@@ -21,7 +21,7 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const {getm,givem}=useSelector((store)=>store.split)
-  localStorage.removeItem("id");
+  localStorage.removeItem("pid");
 
   let username = localStorage.getItem("username");
   const dispatch=useDispatch();
@@ -35,7 +35,9 @@ function Dashboard() {
   if (personQuery.status === "error") {
     return <h1>{JSON.stringify(personQuery.error)}</h1>
   }
+  
   localStorage.setItem("username", personQuery.data[0].name)
+  localStorage.setItem("pid", personQuery.data[0].person_id)
   return (
     <>
 
@@ -43,7 +45,7 @@ function Dashboard() {
         <div className='leftbar'>
           <div className="menu">
             <button className='addgroup' onClick={()=>navigate("/dash")}>
-              {/* <img src={h1} alt="" style={{ width: "20px", height: "20px" }} /> */}
+              
               Dashboard
            
             </button>
@@ -51,7 +53,7 @@ function Dashboard() {
               navigate("/addgroup")
               dispatch(openModal());
             }}>
-               {/* <img src={jg} alt="" style={{ width: "30px", height: "30px" }} /> */}
+              
                Add Group +</button>
             
           </div>
@@ -99,17 +101,21 @@ function Dashboard() {
           </div>
           <div className='downmentos'>
             <div className='tr'>
+            <Suspense fallback={<div>Loading ...</div>}>
             <Transaction member={username}/>
-
+            </Suspense>
             </div>
             <div className='se'>
-
+            <Suspense fallback={<div>Loading ...</div>}>
             <Settle member={username}/>
+            </Suspense>
             </div>
           </div>
         </div>
         <div className="rightbar">
+        <Suspense fallback={<div>Loading ...</div>}>
           <Rightdash username={username} />
+          </Suspense>
         </div>
       </div>
     </>

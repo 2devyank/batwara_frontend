@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { useSelector } from 'react-redux';
-import ExpenseModal from '../components/ExpenseModal'
+
+const ExpenseModal=lazy(()=>import("../components/ExpenseModal"))
 
 export default function Addexpense() {
   const {isOpen}=useSelector((store)=>store.split);
   return (
    <>
+     <Suspense fallback={<div>Loading ...</div>}>
    {isOpen&&<ExpenseModal />}
+     </Suspense>
    </>
   )
 }

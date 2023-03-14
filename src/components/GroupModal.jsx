@@ -7,9 +7,7 @@ import "../styles/Add.css"
 // import { Form } from 'react-router-dom'
 
 export default function GroupModal() {
-    // const [show, setShow] = useState(false);
-    // const handleShow = () => setShow(true);
-    // const handleClose = () => setShow(false);
+    
     const {isgrpOpen}=useSelector((store)=>store.group)
     const dispatch=useDispatch()
     const navigate=useNavigate();
@@ -26,7 +24,7 @@ export default function GroupModal() {
 
       async function getmember(query) {
         // e.preventDefault();
-        const result = await fetch(`http://localhost:5000/user/${query}`)
+        const result = await fetch(`https://batwarabackend-production.up.railway.app/user/${query}`)
         const data = await result.json();
         setlist(data);
     
@@ -44,12 +42,14 @@ export default function GroupModal() {
     
       }
     async function postgroup(e) {
+      e.preventDefault();
         let person_id = localStorage.getItem("pid")
         let group_id = Math.floor(Math.random()*Date.now()).toString(6).slice(-5);
         try {
     
           const body = { group_id, person_id, grpname, grpmember }
-          const result = await fetch("http://localhost:5000/group", {
+          console.log(body);
+          const result = await fetch("https://batwarabackend-production.up.railway.app/group", {
             method: "POST",
             headers: { "Content-Type": "Application/json" },
             body: JSON.stringify(body)

@@ -18,7 +18,7 @@ export default function Member() {
 
       async function getmember(query) {
         // e.preventDefault();
-        const result = await fetch(`http://localhost:5000/user/${query}`)
+        const result = await fetch(`https://batwarabackend-production.up.railway.app/user/${query}`)
         const data = await result.json();
         setlist(data);
     
@@ -35,7 +35,7 @@ export default function Member() {
     async function postgroup(e) {
         try {
           const body = { grpmember:member }
-          const result = await fetch(`http://localhost:5000/group/${id}`, {
+          const result = await fetch(`https://batwarabackend-production.up.railway.app/group/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "Application/json" },
             body: JSON.stringify(body)

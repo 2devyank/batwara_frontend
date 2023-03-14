@@ -67,10 +67,6 @@ const {isOpen}=useSelector((store)=>store.split);
         </div>
       </div>
 
-
-
-
-
       <div className='grpexpenses'>
      <Suspense fallback={<div>Loading ...</div>}>
         <GroupExpenses id={groupid.id}/>

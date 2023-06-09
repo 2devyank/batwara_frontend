@@ -15,3 +15,17 @@
 
 **Create Expenses**
 <img width="1280" alt="Screenshot 2023-06-08 at 1 15 33 PM" src="https://github.com/2devyank/batwara_frontend/assets/78840243/00f6f530-956c-4900-9325-f18ad1fcd5de">
+
+## How to Run Locally
+**First Clone This Repository**
+<br/>
+`git clone https://github.com/2devyank/batwara_frontend.git`
+
+**Install Dependencies**
+<br/>
+`npm install`
+<br/>
+**Run Command**
+<br/>
+`npm run dev`
+

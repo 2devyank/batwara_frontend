@@ -31,7 +31,7 @@ console.log(amount);
             return;
         }
         const body={amount}
-        const data = await fetch("http://localhost:3000/createOrder", { method: "POST", headers:{"Content-type":"application/json"},body:JSON.stringify(body) }).then((t) => t.json());
+        const data = await fetch("https://batwarabackend.adaptable.app/createOrder", { method: "POST", headers:{"Content-type":"application/json"},body:JSON.stringify(body) }).then((t) => t.json());
         console.log(data);
 
         var options = {

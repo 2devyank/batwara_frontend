@@ -45,7 +45,7 @@ export default function Rightgroup({id}) {
             
               {groupmemQuery.data[0].grpmember.map((mem,index)=>(
                 <tbody>
-                <tr>
+                <tr >
                   <td>#</td>
                   <td key={index}>{mem}</td>
               

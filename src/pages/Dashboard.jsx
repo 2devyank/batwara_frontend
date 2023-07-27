@@ -71,6 +71,7 @@ function Dashboard() {
 
               </div>
             </div>
+            <div className='out' onClick={() => navigate("/payment")}>Settle Payment</div>
             <div className='out' onClick={() => navigate("/")}><img src={s1} alt="" style={{ width: "25px", height: "25px" }} />Sign Out</div>
           </div>
         </div>

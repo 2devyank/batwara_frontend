@@ -21,7 +21,7 @@ const totalpriceref=useRef();
 const queryClient=useQueryClient();
 
     function createexpense({payer,topic,totalprice}){
-        return axios.post("https://batwarabackend-production.up.railway.app/expense",{
+        return axios.post("https://batwarabackend.adaptable.app/expense",{
         expense_id:Math.floor(Math.random()*Date.now()).toString(3).slice(-5),
         payer:payer,
         topic:topic,

@@ -24,7 +24,7 @@ export default function GroupModal() {
 
       async function getmember(query) {
         // e.preventDefault();
-        const result = await fetch(`https://batwarabackend-production.up.railway.app/user/${query}`)
+        const result = await fetch(`https://batwarabackend.adaptable.app/user/${query}`)
         const data = await result.json();
         setlist(data);
     
@@ -49,7 +49,7 @@ export default function GroupModal() {
     
           const body = { group_id, person_id, grpname, grpmember }
           console.log(body);
-          const result = await fetch("https://batwarabackend-production.up.railway.app/group", {
+          const result = await fetch("https://batwarabackend.adaptable.app/group", {
             method: "POST",
             headers: { "Content-Type": "Application/json" },
             body: JSON.stringify(body)

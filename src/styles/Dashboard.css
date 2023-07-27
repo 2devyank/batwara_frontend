@@ -45,7 +45,7 @@
     gap: 10px;
     border: 1px solid rgb(68, 131, 202);
     border-radius: 1.2rem;
-    padding: 1px 15px;
+    padding: 10px 15px;
 }
 .out{
     border: 1px solid rgb(68, 131, 202);
@@ -55,6 +55,8 @@
     padding: 2px 5px;
     color: rgb(14, 24, 37);
     background-color: rgb(68, 131, 202);
+    cursor: pointer;
+  
 }
 .addgroup{
     border: none;
@@ -146,14 +148,14 @@
 }
 .tr{
     height: 100%;
-    width: 46%;
+    width: 50%;
     overflow-y: auto;
     border: 1px solid white;
     border-radius: 1rem;
 }
 .se{
     height: 100%;
-    width: 46%;
+    width: 50%;
     overflow-y: auto;
     border: 1px solid white;
     border-radius: 1rem;

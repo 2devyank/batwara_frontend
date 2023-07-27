@@ -31,7 +31,7 @@ export default function Rightdash({username}) {
             </thead>
             {groupQuery.data.map((data) => (
               <tbody>
-                <tr onClick={() => navigate(`/groups/${data.group_id}`)} >
+                <tr className='tabrow' onClick={() => navigate(`/groups/${data.group_id}`)} >
                   <td>#</td>
                   <td key={data.group_id}>{data.grpname}</td>
 
